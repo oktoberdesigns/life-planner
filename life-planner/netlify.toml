@@ -1,0 +1,27 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Client-side routes need index.html. Listed explicitly (not /*) so /api/* is never caught.
+[[redirects]]
+  from = "/p/*"
+  to = "/index.html"
+  status = 200
+[[redirects]]
+  from = "/projects/*"
+  to = "/index.html"
+  status = 200
+[[redirects]]
+  from = "/:page(login|personal|business|habits|projects|settings)"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+[[headers]]
+  for = "/p/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
